@@ -1,0 +1,44 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<html>
+<head>
+	<title>Edit activity</title>
+	<meta charset="utf-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<link href="${appName}/css/newActivity.css" rel="stylesheet" type="text/css">
+	<script src="${appName}/js/newActivity.js"></script>
+</head>
+<body class="text-center">
+	<form class="form-newActivity" name="form1" action="${appName}/editActivity" method="post"
+		onsubmit="return validation()">
+		<c:if test="${sessionScope.existingActivity == true}">
+			<h5 class="text-danger">Activity already exist!</h5>
+			<c:remove var="existingActivity" scope="session"/>
+		</c:if>
+		<h1 class="h3 mb-3 fw-normal">Edit activity</h1>
+		<c:if test="${not empty sessionScope.activityToEdit}">
+			<h5 class="text-warning">Name - ${sessionScope.activityToEdit.name}</h5>
+			<h5 class="text-warning">Category - ${sessionScope.activityToEdit.category}</h5>
+		</c:if>
+		<div class="form-floating">
+			<input name="activity" class="form-control" id="activityName" placeholder="Activity name">
+			<label for="activityName">Activity name</label>
+			<span id="activityNameMessage" class="activityNameMessage"></span>
+		</div>
+
+		<select class="form-select form-select-lg" id="category" name="category" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+			<option value="" selected>Category</option>
+			<c:forEach var="category" items="${sessionScope.categories}">
+				<option value="${category.id}">${category.name}</option>
+			</c:forEach>
+		</select>
+		<span id="selectMessage" class="selectMessage"></span>
+
+		<a href="${appName}/jsp/admin/newCategory.jsp" class="link-dark">New category</a>
+		<button class="w-100 btn btn-lg btn-dark" type="submit">Edit activity</button>	
+	</form>
+</body>
+</html>

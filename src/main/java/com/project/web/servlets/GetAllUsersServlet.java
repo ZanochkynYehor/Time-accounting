@@ -38,7 +38,7 @@ public class GetAllUsersServlet extends HttpServlet {
 				}
 			}
 			log.info("users ==> " + users);
-			session.setAttribute("users", users);
+			session.setAttribute("users", users.size() == 0 ? null : users);
 			resp.sendRedirect(req.getContextPath() + "/jsp/admin/users.jsp");
 		} catch (DBException ex) {
 			log.error("DBException in GetAllUsersServlet");

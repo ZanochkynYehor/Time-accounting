@@ -9,6 +9,7 @@ public class User implements Serializable {
 	private int id;
 	private String login;
 	private transient String password;
+	private transient String salt;
 	private int roleId;
 	private String role;
 
@@ -16,9 +17,10 @@ public class User implements Serializable {
 
 	}
 
-	public User(String login, String password, int roleId, String role) {
+	public User(String login, String password, String salt, int roleId, String role) {
 		this.login = login;
 		this.password = password;
+		this.salt = salt;
 		this.roleId = roleId;
 		this.role = role;
 	}
@@ -47,6 +49,14 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+	
 	public int getRoleId() {
 		return roleId;
 	}
@@ -68,7 +78,7 @@ public class User implements Serializable {
 		return "User [id=" + id + ", login=" + login + ", role=" + role + "]";
 	}
 
-	public static User createUser(String login, String password) {
-		return new User(login, password, 2, "user");
+	public static User createUser(String login, String password, String salt) {
+		return new User(login, password, salt, 2, "user");
 	}
 }

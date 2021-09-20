@@ -16,6 +16,7 @@ import com.project.db.DBException;
 import com.project.db.dao.DAO;
 import com.project.db.dao.UserDAO;
 import com.project.db.entity.User;
+import com.project.web.password.PasswordUtil;
 
 @WebServlet("/signin")
 public class SignInServlet extends HttpServlet {
@@ -37,19 +38,19 @@ public class SignInServlet extends HttpServlet {
 		
 		try {
 			User user = userDao.get(login);
-			if (user.getId() != 0) {
-				if (user.getPassword().equals(password)) {
+			if (user != null) {
+				if (PasswordUtil.verifyThePlainTextPassword(password, user.getPassword(), user.getSalt())) {
 					session.setAttribute("user", user);
 					resp.sendRedirect(req.getContextPath() + "/getUserActivities");
 				} else {
 					log.warn("Wrong password");
 					session.setAttribute("signin", "wrongPassword");
-					resp.sendRedirect(req.getContextPath() + "/jsp/signin.jsp");
+					resp.sendRedirect(req.getContextPath() + "/signin.jsp");
 				}
 			} else {
 				log.warn("Wrong login");
 				session.setAttribute("signin", "wrongLogin");
-				resp.sendRedirect(req.getContextPath() + "/jsp/signin.jsp");
+				resp.sendRedirect(req.getContextPath() + "/signin.jsp");
 			}
 		} catch (DBException ex) {
 			log.error("DBException in SignInServlet");

@@ -16,6 +16,7 @@ import com.project.db.DBException;
 import com.project.db.dao.DAO;
 import com.project.db.dao.UserDAO;
 import com.project.db.entity.User;
+import com.project.web.password.PasswordUtil;
 
 @WebServlet("/signup")
 public class SignUpServlet extends HttpServlet {
@@ -36,14 +37,19 @@ public class SignUpServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		try {
-			if (userDao.get(login).getId() != 0) {
+			User user = userDao.get(login);
+			log.info("user ==> " + user);
+			if (user != null) {
+				log.warn("login is taken");
 				session.setAttribute("signup", "loginIsTaken");
-				resp.sendRedirect(req.getContextPath() + "/jsp/signup.jsp");
+				resp.sendRedirect(req.getContextPath() + "/signup.jsp");
 			} else {
-				User user = userDao.create(User.createUser(login, password));
+				String salt = PasswordUtil.generateSalt();
+				String securePassword = PasswordUtil.hashThePlainTextPassword(password, salt);
+				user = userDao.create(User.createUser(login, securePassword, salt));
 				if (user.getId() != 0) {
 					session.setAttribute("signup", "signupSuccessfully");
-					resp.sendRedirect(req.getContextPath() + "/jsp/signin.jsp");
+					resp.sendRedirect(req.getContextPath() + "/signin.jsp");
 				} else {
 					req.setAttribute("errorMessage", "Cannot sign up user");
 					req.getRequestDispatcher("jsp/error.jsp").forward(req, resp);

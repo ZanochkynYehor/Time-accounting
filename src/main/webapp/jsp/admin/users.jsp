@@ -76,59 +76,73 @@
 			<c:set var="begin" value="${pageNumber*rowsPerPage-rowsPerPage}" />
 			<c:set var="end" value="${pageNumber*rowsPerPage-1}" />
 			<div class="panel panel-default">
-				<div class="panel-body table-responsive">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>User login</th>
-								<th>Role</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="user" items="${users}" begin="${begin}" end="${end}">
-								<tr>
-									<td><input type="checkbox" name="chk_user" value="${user.id}" onclick="enableDisableButtons()"></td>
-									<td>${user.login}</td>
-									<td>${user.role}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-					<page:numberOfPages rowsPerPage="${rowsPerPage}" contentSize="${usersSize}" />
-					<p:pagination jsp="users.jsp?pageSize=${rowsPerPage}" pageNumber="${pageNumber}" numberOfPages="${sessionScope.numberOfPages}"></p:pagination>
-				</div>
-				<div class="row justify-content-center">
-					<div class="col-md-1 ">
-						<select class="form-select" id="pageSize" name="pageSize"
-							onchange="refreshPage('${appName}/jsp/admin/users.jsp', 'pageNumber=1')">
-							<c:choose>
-								<c:when test="${rowsPerPage == 3}">
-									<option value="3" selected>3</option>
-								</c:when>
-								<c:otherwise>
-									<option value="3">3</option>
-								</c:otherwise>
-							</c:choose>
-							<c:choose>
-								<c:when test="${rowsPerPage == 5}">
-									<option value="5" selected>5</option>
-								</c:when>
-								<c:otherwise>
-									<option value="5">5</option>
-								</c:otherwise>
-							</c:choose>
-							<c:choose>
-								<c:when test="${rowsPerPage == 10}">
-									<option value="10" selected>10</option>
-								</c:when>
-								<c:otherwise>
-									<option value="10">10</option>
-								</c:otherwise>
-							</c:choose>
-						</select>
-					</div>
-				</div>
+				<c:choose>
+					<c:when test="${users != null}">
+						<div class="panel-body table-responsive">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>User login</th>
+										<th>Role</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="user" items="${users}" begin="${begin}"
+										end="${end}">
+										<tr>
+											<td><input type="checkbox" name="chk_user"
+												value="${user.id}" onclick="enableDisableButtons()"></td>
+											<td>${user.login}</td>
+											<td>${user.role}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+							<page:numberOfPages rowsPerPage="${rowsPerPage}"
+								contentSize="${usersSize}" />
+							<p:pagination jsp="users.jsp?pageSize=${rowsPerPage}"
+								pageNumber="${pageNumber}"
+								numberOfPages="${sessionScope.numberOfPages}"></p:pagination>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-md-1 ">
+								<select class="form-select" id="pageSize" name="pageSize"
+									onchange="refreshPage('${appName}/jsp/admin/users.jsp', 'pageNumber=1')">
+									<c:choose>
+										<c:when test="${rowsPerPage == 3}">
+											<option value="3" selected>3</option>
+										</c:when>
+										<c:otherwise>
+											<option value="3">3</option>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${rowsPerPage == 5}">
+											<option value="5" selected>5</option>
+										</c:when>
+										<c:otherwise>
+											<option value="5">5</option>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${rowsPerPage == 10}">
+											<option value="10" selected>10</option>
+										</c:when>
+										<c:otherwise>
+											<option value="10">10</option>
+										</c:otherwise>
+									</c:choose>
+								</select>
+							</div>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="text-center">
+							<h5>There is no any users</h5>
+						</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</form>

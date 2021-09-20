@@ -21,15 +21,17 @@ public class UserDAO implements DAO<User> {
 	
 	@Override
 	public User create(User user) throws DBException {
-		String insert = "INSERT INTO users VALUES (0, ?, ?, 2)";
+		String insert = "INSERT INTO users VALUES (0, ?, ?, ?, 2)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = ConnectionPool.getInstance().getConnection();
 			pstmt = con.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, user.getLogin());
-			pstmt.setString(2, user.getPassword());
+			int index = 1;
+			pstmt.setString(index++, user.getLogin());
+			pstmt.setString(index++, user.getPassword());
+			pstmt.setString(index++, user.getSalt());
 			if (pstmt.executeUpdate() > 0) {
 				rs = pstmt.getGeneratedKeys();
 					if (rs.next()) {
@@ -49,7 +51,7 @@ public class UserDAO implements DAO<User> {
 
 	@Override
 	public void update(User user) throws DBException {
-		String update = "UPDATE users SET user_login = ?, user_password = ?, role_id = ? WHERE user_id = ?";
+		String update = "UPDATE users SET user_login = ?, user_password = ?, salt = ?, role_id = ? WHERE user_id = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -58,6 +60,7 @@ public class UserDAO implements DAO<User> {
 			int index = 1;
 			pstmt.setString(index++, user.getLogin());
 			pstmt.setString(index++, user.getPassword());
+			pstmt.setString(index++, user.getSalt());
 			pstmt.setInt(index++, user.getRoleId());
 			pstmt.setInt(index++, user.getId());
 			pstmt.executeUpdate();
@@ -92,7 +95,7 @@ public class UserDAO implements DAO<User> {
 
 	@Override
 	public User get(String login) throws DBException {
-		String select = "SELECT user_id, user_login, user_password, role_name FROM users JOIN user_roles USING(role_id) WHERE user_login = ?";
+		String select = "SELECT user_id, user_login, user_password, salt, role_name FROM users JOIN user_roles USING(role_id) WHERE user_login = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -118,7 +121,7 @@ public class UserDAO implements DAO<User> {
 	}
 	
 	public User get(int userId) throws DBException {
-		String select = "SELECT user_id, user_login, user_password, role_name FROM users JOIN user_roles USING(role_id) WHERE user_id = ?";
+		String select = "SELECT user_id, user_login, user_password, salt, role_name FROM users JOIN user_roles USING(role_id) WHERE user_id = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -145,7 +148,7 @@ public class UserDAO implements DAO<User> {
 
 	@Override
 	public List<User> getAll() throws DBException {
-		String select = "SELECT user_id, user_login, user_password, role_name FROM users JOIN user_roles USING(role_id)";
+		String select = "SELECT user_id, user_login, user_password, salt, role_name FROM users JOIN user_roles USING(role_id)";
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -174,6 +177,7 @@ public class UserDAO implements DAO<User> {
 		user.setId(rs.getInt("user_id"));
 		user.setLogin(rs.getString("user_login"));
 		user.setPassword(rs.getString("user_password"));
+		user.setSalt(rs.getString("salt"));
 		user.setRole(rs.getString("role_name"));
 		return user;
 	}

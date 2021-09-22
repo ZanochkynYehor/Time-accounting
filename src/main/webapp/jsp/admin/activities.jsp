@@ -2,65 +2,49 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="p" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="page" uri="http://com.project.web.tags/pagination"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="messages" />
 
 <html>
 <head>
-<title>Activities</title>
-<meta charset="utf-8">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-<link href="${appName}/css/activities.css" rel="stylesheet"
-	type="text/css">
-<script src="${appName}/js/activities.js"></script>
+	<title><fmt:message key="activities.title"/></title>
+	<meta charset="utf-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<link href="${appName}/css/activities.css" rel="stylesheet" type="text/css">
+	<script src="${appName}/js/activities.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a href="#" class="navbar-brand">Time accounting</a>
+				<a href="#" class="navbar-brand"><fmt:message key="navbar.appName"/></a>
 			</div>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false"
-				aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+			aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav me-auto">
-					<li class="nav-item"><a class="nav-link"
-						href="${appName}/jsp/profile.jsp">Profile</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Admin: </a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="${appName}/getAllUsers">Users</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Activities</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="${appName}/getAllCategories">Categories</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="${appName}/getRequestedActivities">Requests</a></li>
+					<li class="nav-item"><a class="nav-link" href="${appName}/jsp/profile.jsp"><fmt:message key="navbar.profile"/></a></li>
+					<li class="nav-item"><a class="nav-link" href="${appName}/getAllUsers"><fmt:message key="navbar.users"/></a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="#"><fmt:message key="navbar.activities"/></a></li>
+					<li class="nav-item"><a class="nav-link" href="${appName}/getAllCategories"><fmt:message key="navbar.categories"/></a></li>
+					<li class="nav-item"><a class="nav-link" href="${appName}/getRequestedActivities"><fmt:message key="navbar.requests"/></a></li>
 				</ul>
 				<ul class="navbar-nav ms-auto">
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							${sessionScope.user.login}</a>
-						<ul class="dropdown-menu dropdown-menu-dark"
-							aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item"
-								href="${appName}/jsp/settings.jsp">Settings</a></li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> ${sessionScope.user.login}</a>
+						<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="${appName}/jsp/settings.jsp"><fmt:message key="navbar.settings"/></a></li>
 							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${appName}/signout">Sign
-									Out</a></li>
-						</ul></li>
+							<li><a class="dropdown-item" href="${appName}/signout"><fmt:message key="navbar.signout"/></a></li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -113,64 +97,16 @@
 					</select>
 				</div>
 				<div class="col-md-2">
-					<label for="sort">Sort by</label> <select id="sort"
-						class="form-select" onchange="goToSortServlet('${appName}/sort')">
-						<c:choose>
-							<c:when test="${sessionScope.sortOption == 'default'}">
-								<option value="default" selected>Default</option>
-							</c:when>
-							<c:otherwise>
-								<option value="default">Default</option>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${sessionScope.sortOption == 'name asc'}">
-								<option value="name asc" selected>Name asc</option>
-							</c:when>
-							<c:otherwise>
-								<option value="name asc">Name asc</option>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${sessionScope.sortOption == 'name desc'}">
-								<option value="name desc" selected>Name desc</option>
-							</c:when>
-							<c:otherwise>
-								<option value="name desc">Name desc</option>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${sessionScope.sortOption == 'category asc'}">
-								<option value="category asc" selected>Category asc</option>
-							</c:when>
-							<c:otherwise>
-								<option value="category asc">Category asc</option>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${sessionScope.sortOption == 'category desc'}">
-								<option value="category desc" selected>Category desc</option>
-							</c:when>
-							<c:otherwise>
-								<option value="category desc">Category desc</option>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${sessionScope.sortOption == 'users count asc'}">
-								<option value="users count asc" selected>Users count asc</option>
-							</c:when>
-							<c:otherwise>
-								<option value="users count asc">Users count asc</option>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${sessionScope.sortOption == 'users count desc'}">
-								<option value="users count desc" selected>Users count desc</option>
-							</c:when>
-							<c:otherwise>
-								<option value="users count desc">Users count desc</option>
-							</c:otherwise>
-						</c:choose>
+					<label for="sort">Sort by</label>
+					<select id="sort" class="form-select" onchange="goToSortServlet('${appName}/sort')">
+						<c:set var="sortOption" value="${sessionScope.sortOption}" />
+						<option value="default" ${sortOption == 'default' ? 'selected' : ''}>Default</option>
+						<option value="name asc" ${sortOption == 'name asc' ? 'selected' : ''}>Name asc</option>
+						<option value="name desc" ${sortOption == 'name desc' ? 'selected' : ''}>Name desc</option>
+						<option value="category asc" ${sortOption == 'category asc' ? 'selected' : ''}>Category asc</option>
+						<option value="category desc" ${sortOption == 'category desc' ? 'selected' : ''}>Category desc</option>
+						<option value="users count asc" ${sortOption == 'users count asc' ? 'selected' : ''}>Users count asc</option>
+						<option value="users count desc" ${sortOption == 'users count desc' ? 'selected' : ''}>Users count desc</option>
 					</select>
 				</div>
 			</div>

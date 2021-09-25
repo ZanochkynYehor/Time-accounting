@@ -64,7 +64,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<button class="btn btn-md btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#changeUserLogin"
-					aria-expanded="false" aria-controls="changeUserLogin">Change login
+					aria-expanded="false" aria-controls="changeUserLogin"><fmt:message key="settings.changeLogin"/>
 				</button>
 			</div>
 			<div class="col-md-8">
@@ -74,13 +74,13 @@
 							<form action="${appName}/changeUserLogin" method="post" id="formLogin" onsubmit="return validateLogin()">
 								<div class="form-floating">
 									<input name="login" class="form-control" id="inputLogin" placeholder="Login">
-									<label for="inputLogin">Login</label>
-									<span hidden="hidden" id="loginMessage" class="loginMessage">Enter login</span>	
+									<label for="inputLogin"><fmt:message key="settings.login"/></label>
+									<span hidden="hidden" id="loginMessage" class="loginMessage"><fmt:message key="settings.span.login"/></span>	
 								</div>
 							</form>
 						</div>
 						<div class="col-md-2">
-							<button class="btn btn-md btn-dark" type="submit" form="formLogin">Change</button>
+							<button class="btn btn-md btn-dark" type="submit" form="formLogin"><fmt:message key="settings.change"/></button>
 						</div>
 					</div>
 				</div>
@@ -88,16 +88,15 @@
 		</div>
 		<div class="row">
 			<c:if test="${sessionScope.loginChanged == true}">
-				<h5 class="text-success text-center">Login changed successfully</h5>
+				<h5 class="text-success text-center"><fmt:message key="settings.loginChangedSuccessfully"/></h5>
 				<c:remove var="loginChanged" scope="session"/>
 			</c:if>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
-				<button class="btn btn-md btn-dark" type="button"
-					data-bs-toggle="collapse" data-bs-target="#changeUserPassword"
-					aria-expanded="false" aria-controls="changeUserPassword">
-					Change password</button>
+				<button class="btn btn-md btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#changeUserPassword"
+					aria-expanded="false" aria-controls="changeUserPassword"><fmt:message key="settings.changePassword"/>
+				</button>
 			</div>
 			<div class="col-md-8">
 				<div class="collapse" id="changeUserPassword">
@@ -106,13 +105,13 @@
 							<form action="${appName}/changeUserPassword" method="post" id="formPassword" onsubmit="return validatePassword()">
 								<div class="form-floating">
 									<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
-									<label for="inputPassword">Password</label>
-									<span hidden="hidden" id="passwordMessage" class="passwordMessage">Enter password</span>	
+									<label for="inputPassword"><fmt:message key="settings.password"/></label>
+									<span hidden="hidden" id="passwordMessage" class="passwordMessage"><fmt:message key="settings.span.password"/></span>	
 								</div>
 							</form>
 						</div>
 						<div class="col-md-2">
-							<button class="btn btn-md btn-dark" type="submit" form="formPassword">Change</button>
+							<button class="btn btn-md btn-dark" type="submit" form="formPassword"><fmt:message key="settings.change"/></button>
 						</div>
 					</div>
 				</div>
@@ -120,7 +119,7 @@
 		</div>
 		<div class="row">
 			<c:if test="${sessionScope.passwordChanged == true}">
-				<h5 class="text-success text-center">Password changed successfully</h5>
+				<h5 class="text-success text-center"><fmt:message key="settings.passwordChangedSuccessfully"/></h5>
 				<c:remove var="passwordChanged" scope="session"/>
 			</c:if>
 		</div>

@@ -6,10 +6,11 @@ function changeLanguage(dest) {
 function validateLogin() {
 	var login = document.getElementById('inputLogin');
 	var loginMessage = document.getElementById('loginMessage');
+	var loginRegex = /^([a-zA-Z\u0430-\u044f\u0410-\u042F0-9]{6,20})$/;
 	var goodColor = "#66cc66";
 	var badColor = "#ff6666";
 	
-	if (login.value != "") {
+	if (login.value.match(loginRegex)) {
 		login.style.backgroundColor = goodColor;
 		loginMessage.style.color = goodColor;
 		loginMessage.setAttribute("hidden", "hidden");

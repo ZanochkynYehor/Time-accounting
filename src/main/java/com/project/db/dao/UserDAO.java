@@ -95,7 +95,7 @@ public class UserDAO implements DAO<User> {
 
 	@Override
 	public User get(String login) throws DBException {
-		String select = "SELECT user_id, user_login, user_password, salt, role_name FROM users JOIN user_roles USING(role_id) WHERE user_login = ?";
+		String select = "SELECT user_id, user_login, user_password, salt, role_id, role_name FROM users JOIN user_roles USING(role_id) WHERE user_login = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -121,7 +121,7 @@ public class UserDAO implements DAO<User> {
 	}
 	
 	public User get(int userId) throws DBException {
-		String select = "SELECT user_id, user_login, user_password, salt, role_name FROM users JOIN user_roles USING(role_id) WHERE user_id = ?";
+		String select = "SELECT user_id, user_login, user_password, salt, role_id, role_name FROM users JOIN user_roles USING(role_id) WHERE user_id = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -148,7 +148,7 @@ public class UserDAO implements DAO<User> {
 
 	@Override
 	public List<User> getAll() throws DBException {
-		String select = "SELECT user_id, user_login, user_password, salt, role_name FROM users JOIN user_roles USING(role_id)";
+		String select = "SELECT user_id, user_login, user_password, salt, role_id, role_name FROM users JOIN user_roles USING(role_id)";
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -179,6 +179,7 @@ public class UserDAO implements DAO<User> {
 		user.setPassword(rs.getString("user_password"));
 		user.setSalt(rs.getString("salt"));
 		user.setRole(rs.getString("role_name"));
+		user.setRoleId(rs.getInt("role_id"));
 		return user;
 	}
 }

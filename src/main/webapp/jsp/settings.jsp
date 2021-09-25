@@ -12,6 +12,7 @@
 	<meta charset="utf-8">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+	<link href="${appName}/css/settings.css" rel="stylesheet" type="text/css">
 	<script src="${appName}/js/settings.js"></script>
 </head>	
 <body>
@@ -37,7 +38,7 @@
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> ${sessionScope.user.login}</a>
-						<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+						<ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
 							<li><a class="dropdown-item" href="#"><fmt:message key="navbar.settings"/></a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="${appName}/signout"><fmt:message key="navbar.signout"/></a></li>
@@ -50,7 +51,7 @@
 	
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-md-4">
 				<p><fmt:message key="settings.language"/></p>
 			</div>
 			<div class="col-md-2">
@@ -61,9 +62,67 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col">
-				<input type="submit" class="btn btn-dark" value="Apply">
+			<div class="col-md-4">
+				<button class="btn btn-md btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#changeUserLogin"
+					aria-expanded="false" aria-controls="changeUserLogin">Change login
+				</button>
 			</div>
+			<div class="col-md-8">
+				<div class="collapse" id="changeUserLogin">
+					<div class="row">
+						<div class="col-md-6">
+							<form action="${appName}/changeUserLogin" method="post" id="formLogin" onsubmit="return validateLogin()">
+								<div class="form-floating">
+									<input name="login" class="form-control" id="inputLogin" placeholder="Login">
+									<label for="inputLogin">Login</label>
+									<span hidden="hidden" id="loginMessage" class="loginMessage">Enter login</span>	
+								</div>
+							</form>
+						</div>
+						<div class="col-md-2">
+							<button class="btn btn-md btn-dark" type="submit" form="formLogin">Change</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<c:if test="${sessionScope.loginChanged == true}">
+				<h5 class="text-success text-center">Login changed successfully</h5>
+				<c:remove var="loginChanged" scope="session"/>
+			</c:if>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<button class="btn btn-md btn-dark" type="button"
+					data-bs-toggle="collapse" data-bs-target="#changeUserPassword"
+					aria-expanded="false" aria-controls="changeUserPassword">
+					Change password</button>
+			</div>
+			<div class="col-md-8">
+				<div class="collapse" id="changeUserPassword">
+					<div class="row">
+						<div class="col-md-6">
+							<form action="${appName}/changeUserPassword" method="post" id="formPassword" onsubmit="return validatePassword()">
+								<div class="form-floating">
+									<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
+									<label for="inputPassword">Password</label>
+									<span hidden="hidden" id="passwordMessage" class="passwordMessage">Enter password</span>	
+								</div>
+							</form>
+						</div>
+						<div class="col-md-2">
+							<button class="btn btn-md btn-dark" type="submit" form="formPassword">Change</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<c:if test="${sessionScope.passwordChanged == true}">
+				<h5 class="text-success text-center">Password changed successfully</h5>
+				<c:remove var="passwordChanged" scope="session"/>
+			</c:if>
 		</div>
 	</div>
 </body>

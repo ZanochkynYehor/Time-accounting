@@ -4,8 +4,8 @@ function validation(login, pass1, pass2) {
 	var confirmMessage = document.getElementById('confirmMessage');
 	var goodColor = "#66cc66";
 	var badColor = "#ff6666";
-	var loginRegex = /^([a-zA-Z0-9]{6,20})$/;
-	var passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{6,20}$/;
+	var loginRegex = /^([a-zA-Z\u0430-\u044f\u0410-\u042F0-9]{6,20})$/;
+	var passRegex = /^(?=.*\d)(?=.*[a-z\u0430-\u044f])(?=.*[A-Z\u0410-\u042F])[a-zA-Z\u0430-\u044f\u0410-\u042F0-9]{6,20}$/;
 	var firstCheck = false;
 	var secondCheck = false;
 	var thirdCheck = false;
@@ -13,39 +13,43 @@ function validation(login, pass1, pass2) {
 	if (login.value.match(loginRegex)) {
 		login.style.backgroundColor = goodColor;
 		loginMessage.style.color = goodColor;
-		loginMessage.innerHTML = "All good!";
+		loginMessage.setAttribute("hidden", "hidden");
 		firstCheck = true;
 	} else {
 		login.style.backgroundColor = badColor;
 		loginMessage.style.color = badColor;
-		loginMessage.innerHTML = "From 6 to 20 characters required!";
+		loginMessage.removeAttribute("hidden");
 		firstCheck = false;
 	}
 	if (pass1.value.match(passRegex)) {
 		pass1.style.backgroundColor = goodColor;
 		passwordMessage.style.color = goodColor;
-		passwordMessage.innerHTML = "All good!";
+		passwordMessage.setAttribute("hidden", "hidden");
 		secondCheck = true;
 	} else {
 		pass1.style.backgroundColor = badColor;
 		passwordMessage.style.color = badColor;
-		passwordMessage.innerHTML = "From 6 to 20 characters, at least one uppercase letter, one lowercase letter and one number required!";
+		passwordMessage.removeAttribute("hidden");
 		secondCheck = false;
 	}
 	if (pass1.value == pass2.value) {
 		pass2.style.backgroundColor = goodColor;
 		confirmMessage.style.color = goodColor;
-		confirmMessage.innerHTML = "Passwords match!";
+		confirmMessage.setAttribute("hidden", "hidden");
 		thirdCheck = true;
 	} else {
 		pass2.style.backgroundColor = badColor;
 		confirmMessage.style.color = badColor;
-		confirmMessage.innerHTML = "Passwords do not match!";
+		confirmMessage.removeAttribute("hidden");
 		thirdCheck = false;
 	}
 	if (firstCheck && secondCheck && thirdCheck) {
 		return true;
-	} else {
-		return false;
 	}
+	return false;
+}
+
+function changeLanguage(dest) {
+	var language = document.getElementById("lang").value;
+	document.location.href = dest + "?language=" + language;
 }

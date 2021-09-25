@@ -9,28 +9,32 @@ function validation(login, pass) {
 	if (login.value != "") {
 		login.style.backgroundColor = goodColor;
 		loginMessage.style.color = goodColor;
-		loginMessage.innerHTML = "All good!";
+		loginMessage.setAttribute("hidden", "hidden");
 		firstCheck = true;
 	} else {
 		login.style.backgroundColor = badColor;
 		loginMessage.style.color = badColor;
-		loginMessage.innerHTML = "Login field cannot be empty!";
+		loginMessage.removeAttribute("hidden");
 		firstCheck = false;
 	}
 	if (pass.value != "") {
 		pass.style.backgroundColor = goodColor;
 		passwordMessage.style.color = goodColor;
-		passwordMessage.innerHTML = "All good!";
+		passwordMessage.setAttribute("hidden", "hidden");
 		secondCheck = true;
 	} else {
 		pass.style.backgroundColor = badColor;
 		passwordMessage.style.color = badColor;
-		passwordMessage.innerHTML = "Password field cannot be empty!";
+		passwordMessage.removeAttribute("hidden");
 		secondCheck = false;
 	}
 	if (firstCheck && secondCheck) {
 		return true;
-	} else {
-		return false;
 	}
+	return false;
+}
+
+function changeLanguage(dest) {
+	var language = document.getElementById("lang").value;
+	document.location.href = dest + "?language=" + language;
 }

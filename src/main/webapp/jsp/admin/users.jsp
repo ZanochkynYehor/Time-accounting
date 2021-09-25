@@ -53,9 +53,9 @@
 	<form action="${appName}/getUserActivities" method="post">
 		<div class="container">
 			<div class="btn-group" role="group">
-				<button id="statButton" class="btn btn-lg btn-dark" type="submit" disabled>Stat</button>
-				<button id="editButton" class="btn btn-lg btn-dark" type="submit" formaction="${appName}/editUser" disabled>Edit</button>
-				<button id="removeButton" class="btn btn-lg btn-dark" type="submit" formaction="${appName}/removeUsers" disabled>Remove</button>
+				<button id="statButton" class="btn btn-lg btn-dark" type="submit" disabled><fmt:message key="users.stat"/></button>
+				<button id="editButton" class="btn btn-lg btn-dark" type="submit" formaction="${appName}/editUser" disabled><fmt:message key="users.edit"/></button>
+				<button id="removeButton" class="btn btn-lg btn-dark" type="submit" formaction="${appName}/removeUsers" disabled><fmt:message key="users.remove"/></button>
 				<button class="btn btn-lg btn-dark" type="submit" formaction="${appName}/getAllUsers"><i class="bi-arrow-repeat"></i></button>
 			</div>
 			<hr>
@@ -87,8 +87,8 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>User login</th>
-										<th>Role</th>
+										<th><fmt:message key="users.login"/></th>
+										<th><fmt:message key="users.role"/></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -143,7 +143,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="text-center">
-							<h5>There is no any users</h5>
+							<h5><fmt:message key="users.noUsers"/></h5>
 						</div>
 					</c:otherwise>
 				</c:choose>

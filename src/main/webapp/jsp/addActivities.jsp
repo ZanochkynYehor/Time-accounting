@@ -2,10 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="p" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="page" uri="http://com.project.web.tags/pagination"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="messages" />
 
 <html>
 <head>
-	<title>Add activities</title>
+	<title><fmt:message key="addActivities.title"/></title>
 	<meta charset="utf-8">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
@@ -43,8 +48,8 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Activity name</th>
-										<th>Category</th>
+										<th><fmt:message key="addActivities.activity"/></th>
+										<th><fmt:message key="addActivities.category"/></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -96,7 +101,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="text-center">
-							<h5>You have started / finished all existing activities</h5>
+							<h5><fmt:message key="addActivities.noActivities"/></h5>
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -105,11 +110,11 @@
 		<hr>
 		<div class="text-center">
 			<button id="addButton" class="btn btn-lg btn-dark" type="submit"
-				disabled>Add</button>
+				disabled><fmt:message key="addActivities.add"/></button>
 		</div>
 		<br>
 		<div class="text-center">
-			<a href="${appName}/jsp/profile.jsp" class="link-dark">Back</a>
+			<a href="${appName}/jsp/profile.jsp" class="link-dark"><fmt:message key="addActivities.back"/></a>
 		</div>
 	</form>
 </body>

@@ -11,28 +11,28 @@ function validation() {
 	if (activityName.value != "") {
 		activityName.style.backgroundColor = goodColor;
 		activityNameMessage.style.color = goodColor;
-		activityNameMessage.innerHTML = "All good!";
+		activityNameMessage.setAttribute("hidden", "hidden");
 		firstCheck = true;
 	} else {
 		activityName.style.backgroundColor = badColor;
 		activityNameMessage.style.color = badColor;
-		activityNameMessage.innerHTML = "Activity name cannot be empty!";
+		activityNameMessage.removeAttribute("hidden");
 		firstCheck = false;
 	}
 	if (category.value == "") {
 		category.style.backgroundColor = badColor;
 		selectMessage.style.color = badColor;
-		selectMessage.innerHTML = "Choose category!";
+		selectMessage.removeAttribute("hidden");
 		secondCheck = false;
 	} else {
 		category.style.backgroundColor = goodColor;
 		selectMessage.style.color = goodColor;
-		selectMessage.innerHTML = "All good!";
+		selectMessage.setAttribute("hidden", "hidden");
 		secondCheck = true;
 	}
+	
 	if(secondCheck && firstCheck) {
 		return true;
-	} else {
-		return false;
 	}
+	return false;
 }

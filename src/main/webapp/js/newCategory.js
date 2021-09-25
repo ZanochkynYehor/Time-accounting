@@ -7,12 +7,12 @@ function validation() {
 	if (category.value != "") {
 		category.style.backgroundColor = goodColor;
 		categoryNameMessage.style.color = goodColor;
-		categoryNameMessage.innerHTML = "All good!";
+		categoryNameMessage.setAttribute("hidden", "hidden");
 		return true;
 	} else {
 		category.style.backgroundColor = badColor;
 		categoryNameMessage.style.color = badColor;
-		categoryNameMessage.innerHTML = "Category name cannot be empty!";
+		categoryNameMessage.removeAttribute("hidden");
 		return false;
 	}
 }

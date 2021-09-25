@@ -45,7 +45,7 @@ public class AddActivitiesToUserServlet extends HttpServlet {
 				resp.sendRedirect(req.getContextPath() + "/jsp/addActivities.jsp");
 			} else {
 				String[] arrayOfActivitiesIds = req.getParameterValues("chk_activity");
-				System.out.println("count activities to add ==> " + arrayOfActivitiesIds.length);
+				log.info("count activities to add ==> " + arrayOfActivitiesIds.length);
 				UserActivityDAO userActivityDao = new UserActivityDAO();
 				if (user.getRole().equals("admin")) {
 					userActivityDao.create(user, arrayOfActivitiesIds, "Yes");

@@ -55,11 +55,11 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="btn-group" role="group">
-						<button class="btn btn-lg btn-dark" type="submit">New</button>
+						<button class="btn btn-lg btn-dark" type="submit"><fmt:message key="activities.new"/></button>
 						<button id="editButton" class="btn btn-lg btn-dark" type="submit"
-							formaction="${appName}/editActivity" disabled>Edit</button>
+							formaction="${appName}/editActivity" disabled><fmt:message key="activities.edit"/></button>
 						<button id="removeButton" class="btn btn-lg btn-dark"
-							type="submit" formaction="${appName}/removeActivities" disabled>Remove</button>
+							type="submit" formaction="${appName}/removeActivities" disabled><fmt:message key="activities.remove"/></button>
 						<button class="btn btn-lg btn-dark" type="submit"
 							formaction="${appName}/getAllActivities">
 							<i class="bi-arrow-repeat"></i>
@@ -68,20 +68,20 @@
 				</div>
 				
 				<div class="col-md-2 offset-md-4">
-					<label for="category">Category</label>
+					<label for="category"><fmt:message key="activities.category"/></label>
 					<select class="form-select"
 						id="category" name="category" onfocus='this.size=4;'
 						onblur='this.size=1;'
 						onchange="this.size=1; this.blur(); goToFilterByCategoryServlet('${appName}/filterByCategory')">
 						<c:choose>
 							<c:when test="${sessionScope.categoryOption == 'all'}">
-								<option value="all" selected>All</option>
+								<option value="all" selected><fmt:message key="activities.categories.all"/></option>
 								<c:forEach var="category" items="${sessionScope.categories}">
 									<option value="${category.id}">${category.name}</option>
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
-								<option value="all">All</option>
+								<option value="all"><fmt:message key="activities.categories.all"/></option>
 								<c:forEach var="category" items="${sessionScope.categories}">
 									<c:choose>
 										<c:when test="${sessionScope.categoryOption == category.id}">
@@ -97,16 +97,16 @@
 					</select>
 				</div>
 				<div class="col-md-2">
-					<label for="sort">Sort by</label>
+					<label for="sort"><fmt:message key="activities.sortBy"/></label>
 					<select id="sort" class="form-select" onchange="goToSortServlet('${appName}/sort')">
 						<c:set var="sortOption" value="${sessionScope.sortOption}" />
-						<option value="default" ${sortOption == 'default' ? 'selected' : ''}>Default</option>
-						<option value="name asc" ${sortOption == 'name asc' ? 'selected' : ''}>Name asc</option>
-						<option value="name desc" ${sortOption == 'name desc' ? 'selected' : ''}>Name desc</option>
-						<option value="category asc" ${sortOption == 'category asc' ? 'selected' : ''}>Category asc</option>
-						<option value="category desc" ${sortOption == 'category desc' ? 'selected' : ''}>Category desc</option>
-						<option value="users count asc" ${sortOption == 'users count asc' ? 'selected' : ''}>Users count asc</option>
-						<option value="users count desc" ${sortOption == 'users count desc' ? 'selected' : ''}>Users count desc</option>
+						<option value="default" ${sortOption == 'default' ? 'selected' : ''}><fmt:message key="activities.sortBy.default"/></option>
+						<option value="name asc" ${sortOption == 'name asc' ? 'selected' : ''}><fmt:message key="activities.sortBy.name.asc"/></option>
+						<option value="name desc" ${sortOption == 'name desc' ? 'selected' : ''}><fmt:message key="activities.sortBy.name.desc"/></option>
+						<option value="category asc" ${sortOption == 'category asc' ? 'selected' : ''}><fmt:message key="activities.sortBy.category.asc"/></option>
+						<option value="category desc" ${sortOption == 'category desc' ? 'selected' : ''}><fmt:message key="activities.sortBy.category.desc"/></option>
+						<option value="users count asc" ${sortOption == 'users count asc' ? 'selected' : ''}><fmt:message key="activities.sortBy.usersCount.asc"/></option>
+						<option value="users count desc" ${sortOption == 'users count desc' ? 'selected' : ''}><fmt:message key="activities.sortBy.usersCount.desc"/></option>
 					</select>
 				</div>
 			</div>
@@ -137,8 +137,8 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Activity name</th>
-								<th>Category</th>
+								<th><fmt:message key="activities.activity"/></th>
+								<th><fmt:message key="activities.category"/></th>
 							</tr>
 						</thead>
 						<tbody>

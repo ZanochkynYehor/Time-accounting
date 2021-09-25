@@ -51,23 +51,17 @@
 			</div>
 		</div>
 	</nav>
-
-	<c:if test="${sessionScope.access == 'denied'}">
-		<div class="text-center">
-			<h5 class="text-danger">Access denied!</h5>
-		</div>
-		<c:remove var="access" scope="session"/>
-	</c:if>
+	
 	<form action="${appName}/addActivitiesToUser" method="post">
 		<div class="container">
 			<div class="btn-group" role="group">
-				<button class="btn btn-lg btn-dark" type="submit">Add</button>
+				<button class="btn btn-lg btn-dark" type="submit"><fmt:message key="profile.add"/></button>
 				<button id="removeButton" class="btn btn-lg btn-dark" type="submit"
-					formaction="${appName}/removeUserActivities" disabled>Remove</button>
+					formaction="${appName}/removeUserActivities" disabled><fmt:message key="profile.remove"/></button>
 				<button id="startButton" class="btn btn-lg btn-dark" type="submit"
-					formaction="${appName}/startActivities" disabled>Start</button>
+					formaction="${appName}/startActivities" disabled><fmt:message key="profile.start"/></button>
 				<button id="finishButton" class="btn btn-lg btn-dark" type="submit"
-					formaction="${appName}/finishActivities" disabled>Finish</button>
+					formaction="${appName}/finishActivities" disabled><fmt:message key="profile.finish"/></button>
 				<button class="btn btn-lg btn-dark" type="submit"
 					formaction="${appName}/getUserActivities">
 					<i class="bi-arrow-repeat"></i>
@@ -102,10 +96,10 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Activity name</th>
-										<th>Category</th>
-										<th>Start date and time</th>
-										<th>Finish time</th>
+										<th><fmt:message key="profile.activity"/></th>
+										<th><fmt:message key="profile.category"/></th>
+										<th><fmt:message key="profile.startDateTime"/></th>
+										<th><fmt:message key="profile.finishTime"/></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -196,7 +190,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="text-center">
-							<h5>You don't have any activities</h5>
+							<h5><fmt:message key="profile.noActivities"/></h5>
 						</div>
 					</c:otherwise>
 				</c:choose>

@@ -54,9 +54,9 @@
 		<div class="container">
 			<div class="btn-group" role="group">
 				<button id="approveButton" class="btn btn-lg btn-dark" type="submit"
-					disabled>Approve</button>
+					disabled><fmt:message key="requests.approve"/></button>
 				<button id="rejectButton" class="btn btn-lg btn-dark" type="submit"
-					formaction="${appName}/removeUserActivities" disabled>Reject</button>
+					formaction="${appName}/removeUserActivities" disabled><fmt:message key="requests.reject"/></button>
 				<button class="btn btn-lg btn-dark" type="submit"
 					formaction="${appName}/getRequestedActivities">
 					<i class="bi-arrow-repeat"></i>
@@ -93,9 +93,9 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>User login</th>
-										<th>Activity name</th>
-										<th>Category</th>
+										<th><fmt:message key="requests.user"/></th>
+										<th><fmt:message key="requests.activity"/></th>
+										<th><fmt:message key="requests.category"/></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -149,7 +149,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="text-center">
-							<h5>There is no any requests</h5>
+							<h5><fmt:message key="requests.noRequests"/></h5>
 						</div>
 					</c:otherwise>
 				</c:choose>

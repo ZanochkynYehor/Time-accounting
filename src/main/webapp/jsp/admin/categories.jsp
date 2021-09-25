@@ -53,9 +53,9 @@
 	<form action="${appName}/jsp/admin/newCategory.jsp" method="post">
 		<div class="container">
 			<div class="btn-group" role="group">
-				<button class="btn btn-lg btn-dark" type="submit">New</button>
-				<button id="editButton" class="btn btn-lg btn-dark" type="submit" formaction="${appName}/editCategory" disabled>Edit</button>
-				<button id="removeButton" class="btn btn-lg btn-dark" type="submit" formaction="${appName}/removeCategories" disabled>Remove</button>
+				<button class="btn btn-lg btn-dark" type="submit"><fmt:message key="categories.new"/></button>
+				<button id="editButton" class="btn btn-lg btn-dark" type="submit" formaction="${appName}/editCategory" disabled><fmt:message key="categories.edit"/></button>
+				<button id="removeButton" class="btn btn-lg btn-dark" type="submit" formaction="${appName}/removeCategories" disabled><fmt:message key="categories.remove"/></button>
 				<button class="btn btn-lg btn-dark" type="submit" formaction="${appName}/getAllCategories"><i class="bi-arrow-repeat"></i></button>
 			</div>
 			<hr>
@@ -69,7 +69,6 @@
 					<c:set var="rowsPerPage" value="${param.pageSize}" />
 				</c:otherwise>
 			</c:choose>
-			
 			<c:choose>
 				<c:when test="${param.pageNumber == null}">
 					<c:set var="pageNumber" value="1" />
@@ -86,7 +85,7 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Category</th>
+								<th><fmt:message key="categories.category"/></th>
 							</tr>
 						</thead>
 						<tbody>

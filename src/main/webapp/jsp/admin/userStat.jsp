@@ -2,10 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="p" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="page" uri="http://com.project.web.tags/pagination"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="messages" />
 
 <html>
 <head>
-	<title>User stat</title>
+	<title><fmt:message key="userStat.title"/></title>
 	<meta charset="utf-8">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
@@ -15,9 +20,9 @@
 <body>
 	<form>
 		<div class="container">
-			<a href="${appName}/jsp/admin/users.jsp" class="link-dark">Back</a>
+			<a href="${appName}/jsp/admin/users.jsp" class="link-dark"><fmt:message key="userStat.back"/></a>
 			<div class="text-center">
-				<h5>User - ${sessionScope.specificUser.login}</h5>
+				<h5><fmt:message key="userStat.login"/> - ${sessionScope.specificUser.login}</h5>
 			</div>
 			<hr>
 			<c:set var="specificUserActivities" value="${sessionScope.specificUserActivities}" />
@@ -47,10 +52,10 @@
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th>Activity name</th>
-										<th>Category</th>
-										<th>Start date and time</th>
-										<th>Finish time</th>
+										<th><fmt:message key="userStat.activity"/></th>
+										<th><fmt:message key="userStat.category"/></th>
+										<th><fmt:message key="userStat.startDateTime"/></th>
+										<th><fmt:message key="userStat.finishTime"/></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -132,7 +137,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="text-center">
-							<h5>User don't have any activities</h5>
+							<h5><fmt:message key="userStat.noActivities"/></h5>
 						</div>
 					</c:otherwise>
 				</c:choose>

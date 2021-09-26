@@ -1,16 +1,17 @@
 package com.project.web.password;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class PasswordUtilTest {
 
 	@Test
-	public void test() {
+	public void testHashingPassword() {
 		String salt = PasswordUtil.generateSalt();
-		System.out.println("salt ==> " + salt);
-		String password = PasswordUtil.hashThePlainTextPassword("asdf1G", salt);
-		System.out.println("password ==> " + password);
-		boolean res = PasswordUtil.verifyThePlainTextPassword("asdf1G", password, salt);
-		System.out.println("result ==> " + res);
+		String password = PasswordUtil.hashThePlainTextPassword("test", salt);
+		boolean res = PasswordUtil.verifyThePlainTextPassword("test", password, salt);
+		Assert.assertTrue(res);
+		res = PasswordUtil.verifyThePlainTextPassword("wrongPass", password, salt);
+		Assert.assertFalse(res);
 	}
 }

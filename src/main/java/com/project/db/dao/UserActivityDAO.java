@@ -11,7 +11,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.project.db.ConnectionPool;
+import com.project.db.DBUtils;
 import com.project.db.DBException;
 import com.project.db.entity.Activity;
 import com.project.db.entity.User;
@@ -24,7 +24,7 @@ public class UserActivityDAO {
 	public void create(User user, String[] activitiesIds, String approved) throws DBException {
 		Connection con = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			con.setAutoCommit(false);
 			for (String id : activitiesIds) {
 				create(con, user.getId(), Integer.parseInt(id), approved);
@@ -32,10 +32,10 @@ public class UserActivityDAO {
 			con.commit();
 		} catch (SQLException | NumberFormatException ex) {
 			log.error("Cannot create user activities", ex);
-			DAO.rollback(con);
+			DBUtils.rollback(con);
 			throw new DBException("Cannot create user activities", ex);
 		} finally {
-			DAO.close(con);
+			DBUtils.close(con);
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class UserActivityDAO {
 			pstmt.setString(index++, approved);
 			pstmt.executeUpdate();
 		} finally {
-			DAO.close(pstmt);
+			DBUtils.close(pstmt);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class UserActivityDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(update);
 			int index = 1;
 			pstmt.setString(index++, approved);
@@ -72,8 +72,8 @@ public class UserActivityDAO {
 			log.error("Cannot update user activity", ex);
 			throw new DBException("Cannot update user activity", ex);
 		} finally {
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class UserActivityDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(delete);
 			int index = 1;
 			pstmt.setInt(index++, userId);
@@ -92,8 +92,8 @@ public class UserActivityDAO {
 			log.error("Cannot delete user activity", ex);
 			throw new DBException("Cannot delete user activity", ex);
 		} finally {
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 	}
 
@@ -107,7 +107,7 @@ public class UserActivityDAO {
 		ResultSet rs = null;
 		UserActivity userActivity = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(select);
 			int index = 1;
 			pstmt.setInt(index++, user.getId());
@@ -120,9 +120,9 @@ public class UserActivityDAO {
 			log.error("Cannot get user activity", ex);
 			throw new DBException("Cannot get user activity", ex);
 		} finally {
-			DAO.close(rs);
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(rs);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 		return userActivity;
 	}
@@ -140,7 +140,7 @@ public class UserActivityDAO {
 		ResultSet rs = null;
 		List<UserActivity> list = new ArrayList<>();
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(select);
 			int index = 1;
 			pstmt.setInt(index++, user.getId());
@@ -153,9 +153,9 @@ public class UserActivityDAO {
 			log.error("Cannot get all user activities", ex);
 			throw new DBException("Cannot get all user activities", ex);
 		} finally {
-			DAO.close(rs);
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(rs);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 		return list;
 	}
@@ -171,7 +171,7 @@ public class UserActivityDAO {
 		ResultSet rs = null;
 		List<UserActivity> list = new ArrayList<>();
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(select);
 			while (rs.next()) {
@@ -187,9 +187,9 @@ public class UserActivityDAO {
 			log.error("Cannot get not approved activities", ex);
 			throw new DBException("Cannot get not approved activities", ex);
 		} finally {
-			DAO.close(rs);
-			DAO.close(stmt);
-			DAO.close(con);
+			DBUtils.close(rs);
+			DBUtils.close(stmt);
+			DBUtils.close(con);
 		}
 		return list;		
 	}

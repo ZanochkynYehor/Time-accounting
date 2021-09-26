@@ -11,7 +11,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.project.db.ConnectionPool;
+import com.project.db.DBUtils;
 import com.project.db.DBException;
 import com.project.db.entity.User;
 
@@ -26,7 +26,7 @@ public class UserDAO implements DAO<User> {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 			int index = 1;
 			pstmt.setString(index++, user.getLogin());
@@ -42,9 +42,9 @@ public class UserDAO implements DAO<User> {
 			log.error("Cannot insert user", e);
 			throw new DBException("Cannot insert user", e);
 		} finally {
-			DAO.close(rs);
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(rs);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 		return user;
 	}
@@ -55,7 +55,7 @@ public class UserDAO implements DAO<User> {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(update);
 			int index = 1;
 			pstmt.setString(index++, user.getLogin());
@@ -68,8 +68,8 @@ public class UserDAO implements DAO<User> {
 			log.error("Cannot update user", e);
 			throw new DBException("Cannot update user", e);
 		} finally {
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 	}
 
@@ -79,7 +79,7 @@ public class UserDAO implements DAO<User> {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(delete);
 			int index = 1;
 			pstmt.setInt(index++, user.getId());
@@ -88,8 +88,8 @@ public class UserDAO implements DAO<User> {
 			log.error("Cannot delete user", e);
 			throw new DBException("Cannot delete user", e);
 		} finally {
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 	}
 
@@ -101,7 +101,7 @@ public class UserDAO implements DAO<User> {
 		ResultSet rs = null;
 		User user = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(select);
 			int index = 1;
 			pstmt.setString(index++, login);
@@ -113,9 +113,9 @@ public class UserDAO implements DAO<User> {
 			log.error("Cannot get user", e);
 			throw new DBException("Cannot get user", e);
 		} finally {
-			DAO.close(rs);
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(rs);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 		return user;
 	}
@@ -127,7 +127,7 @@ public class UserDAO implements DAO<User> {
 		ResultSet rs = null;
 		User user = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(select);
 			int index = 1;
 			pstmt.setInt(index++, userId);
@@ -139,9 +139,9 @@ public class UserDAO implements DAO<User> {
 			log.error("Cannot get user", e);
 			throw new DBException("Cannot get user", e);
 		} finally {
-			DAO.close(rs);
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(rs);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 		return user;
 	}
@@ -154,7 +154,7 @@ public class UserDAO implements DAO<User> {
 		ResultSet rs = null;
 		List<User> list = new ArrayList<>();
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(select);
 			while (rs.next()) {
@@ -165,9 +165,9 @@ public class UserDAO implements DAO<User> {
 			log.error("Cannot get all users", e);
 			throw new DBException("Cannot get all users", e);
 		} finally {
-			DAO.close(rs);
-			DAO.close(stmt);
-			DAO.close(con);
+			DBUtils.close(rs);
+			DBUtils.close(stmt);
+			DBUtils.close(con);
 		}
 		return list;
 	}

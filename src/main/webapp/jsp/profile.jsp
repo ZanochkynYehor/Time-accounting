@@ -156,37 +156,7 @@
 							<page:numberOfPages rowsPerPage="${rowsPerPage}" contentSize="${userActivitiesSize}" />
 							<p:pagination jsp="profile.jsp?pageSize=${rowsPerPage}" pageNumber="${pageNumber}" numberOfPages="${sessionScope.numberOfPages}"></p:pagination>
 						</div>
-						<div class="row justify-content-center">
-							<div class="col-md-1 ">
-								<select class="form-select" id="pageSize" name="pageSize"
-									onchange="refreshPage('${appName}/jsp/profile.jsp', 'pageNumber=1')">
-									<c:choose>
-										<c:when test="${rowsPerPage == 3}">
-											<option value="3" selected>3</option>
-										</c:when>
-										<c:otherwise>
-											<option value="3">3</option>
-										</c:otherwise>
-									</c:choose>
-									<c:choose>
-										<c:when test="${rowsPerPage == 5}">
-											<option value="5" selected>5</option>
-										</c:when>
-										<c:otherwise>
-											<option value="5">5</option>
-										</c:otherwise>
-									</c:choose>
-									<c:choose>
-										<c:when test="${rowsPerPage == 10}">
-											<option value="10" selected>10</option>
-										</c:when>
-										<c:otherwise>
-											<option value="10">10</option>
-										</c:otherwise>
-									</c:choose>
-								</select>
-							</div>
-						</div>
+						<p:pageSizeSelectpicker jsp="${appName}/jsp/profile.jsp" rowsPerPage="${rowsPerPage}"></p:pageSizeSelectpicker>
 					</c:when>
 					<c:otherwise>
 						<div class="text-center">

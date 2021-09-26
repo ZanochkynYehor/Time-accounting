@@ -11,7 +11,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.project.db.ConnectionPool;
+import com.project.db.DBUtils;
 import com.project.db.DBException;
 import com.project.db.entity.ActivityCategory;
 
@@ -26,7 +26,7 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 			int index = 1;
 			pstmt.setString(index++, category.getName());
@@ -40,9 +40,9 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 			log.error("Cannot insert category", e);
 			throw new DBException("Cannot insert category", e);
 		} finally {
-			DAO.close(rs);
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(rs);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 		return category;
 	}
@@ -53,7 +53,7 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(update);
 			int index = 1;
 			pstmt.setString(index++, category.getName());
@@ -63,8 +63,8 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 			log.error("Cannot update category", e);
 			throw new DBException("Cannot update category", e);
 		} finally {
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 	}
 
@@ -74,7 +74,7 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(delete);
 			int index = 1;
 			pstmt.setInt(index++, category.getId());
@@ -83,8 +83,8 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 			log.error("Cannot delete category", e);
 			throw new DBException("Cannot delete category", e);
 		} finally {
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 	}
 
@@ -96,7 +96,7 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 		ResultSet rs = null;
 		ActivityCategory activityCategory = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(select);
 			int index = 1;
 			pstmt.setString(index++, name);
@@ -108,9 +108,9 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 			log.error("Cannot get category", e);
 			throw new DBException("Cannot get category", e);
 		} finally {
-			DAO.close(rs);
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(rs);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 		return activityCategory;
 	}
@@ -122,7 +122,7 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 		ResultSet rs = null;
 		ActivityCategory activityCategory = null;
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(select);
 			int index = 1;
 			pstmt.setInt(index++, categoryId);
@@ -134,9 +134,9 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 			log.error("Cannot get category", e);
 			throw new DBException("Cannot get category", e);
 		} finally {
-			DAO.close(rs);
-			DAO.close(pstmt);
-			DAO.close(con);
+			DBUtils.close(rs);
+			DBUtils.close(pstmt);
+			DBUtils.close(con);
 		}
 		return activityCategory;
 	}
@@ -149,7 +149,7 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 		ResultSet rs = null;
 		List<ActivityCategory> list = new ArrayList<>();
 		try {
-			con = ConnectionPool.getInstance().getConnection();
+			con = DBUtils.getInstance().getConnection();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(select);
 			while (rs.next()) {
@@ -160,9 +160,9 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 			log.error("Cannot get all activity categories", e);
 			throw new DBException("Cannot get all activity categories", e);
 		} finally {
-			DAO.close(rs);
-			DAO.close(stmt);
-			DAO.close(con);
+			DBUtils.close(rs);
+			DBUtils.close(stmt);
+			DBUtils.close(con);
 		}
 		return list;
 	}

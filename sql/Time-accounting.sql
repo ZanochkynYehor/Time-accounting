@@ -111,3 +111,15 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 INSERT INTO user_roles VALUES (1, 'admin'), (2, 'user');
 INSERT INTO users VALUES (0, 'admin', 'uWepWDRfjj5DQWjuNBuVww2koCMvd1rruog4ySmzlDgjlKcJY/Erwp93cgVsOXp6J2hx/ROCaYdZQJ635XRYAg==', 'lKt6hYQ5wDf1fn1dTtqNZw==', 1);
+
+DELIMITER //
+CREATE TRIGGER check_user_role BEFORE INSERT ON users_activities FOR EACH ROW
+BEGIN
+	DECLARE user_role_id INT DEFAULT 0;
+	SELECT role_id INTO user_role_id FROM users 
+	WHERE user_id = NEW.user_id;
+	IF user_role_id = 1 THEN 
+		SET NEW.approved = 'Yes';
+	END IF;
+END //
+DELIMITER ;

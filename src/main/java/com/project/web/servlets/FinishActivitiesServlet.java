@@ -56,7 +56,7 @@ public class FinishActivitiesServlet extends HttpServlet {
 						Duration duration = Duration.between(startDateTime, finishDateTime);
 						finishTime = LocalTime.MIDNIGHT.plus(duration).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 						log.info("duration ==> " + finishTime);
-						userActivityDao.update(user.getId(), Integer.parseInt(id), "Yes", startTime, finishTime);
+						userActivityDao.update(UserActivity.createUserActivity(user.getId(), Integer.parseInt(id), "Yes", startTime, finishTime));
 					} else {
 						log.warn("activity not started yet");
 					}

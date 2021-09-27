@@ -65,17 +65,26 @@ public class Activity implements Serializable {
 		this.category = category;
 	}
 
-	@Override
-	public String toString() {
-		return "Activity [id=" + id + ", name=" + name + ", category=" + category + "]";
-	}
-
 	public static Activity createActivity(String name, String category) {
 		return new Activity(name, category);
 	}
 	
 	public static Activity createActivity(String name, int categoryId) {
 		return new Activity(name, categoryId);
+	}
+	
+	@Override
+	public String toString() {
+		return "Activity [id=" + id + ", name=" + name + ", category=" + category + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Activity) {
+			Activity activity = (Activity) obj;
+			return this.name.equals(activity.name);
+		}
+		return false;
 	}
 	
 	public static Comparator<Activity> IdComparator = new Comparator<Activity>() {

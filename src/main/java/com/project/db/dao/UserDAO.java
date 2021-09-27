@@ -39,8 +39,8 @@ public class UserDAO implements DAO<User> {
 					}
 			}
 		} catch (SQLException e) {
-			log.error("Cannot insert user", e);
-			throw new DBException("Cannot insert user", e);
+			log.error("Cannot create user", e);
+			throw new DBException("Cannot create user", e);
 		} finally {
 			DBUtils.close(rs);
 			DBUtils.close(pstmt);

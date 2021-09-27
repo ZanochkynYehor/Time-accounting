@@ -47,11 +47,7 @@ public class AddActivitiesToUserServlet extends HttpServlet {
 				String[] arrayOfActivitiesIds = req.getParameterValues("chk_activity");
 				log.info("count activities to add ==> " + arrayOfActivitiesIds.length);
 				UserActivityDAO userActivityDao = new UserActivityDAO();
-				if (user.getRole().equals("admin")) {
-					userActivityDao.create(user, arrayOfActivitiesIds, "Yes");
-				} else {
-					userActivityDao.create(user, arrayOfActivitiesIds, "No");
-				}
+				userActivityDao.create(user, arrayOfActivitiesIds);
 				resp.sendRedirect(req.getContextPath() + "/getUserActivities");
 			}
 		} catch (DBException ex) {

@@ -38,12 +38,21 @@ public class ActivityCategory implements Serializable {
 		this.name = name;
 	}
 
+	public static ActivityCategory createCategory(String name) {
+		return new ActivityCategory(name);
+	}
+	
 	@Override
 	public String toString() {
 		return "ActivityCategory [id=" + id + ", name=" + name + "]";
 	}
 	
-	public static ActivityCategory createCategory(String name) {
-		return new ActivityCategory(name);
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ActivityCategory) {
+			ActivityCategory category = (ActivityCategory) obj;
+			return this.name.equals(category.name);
+		}
+		return false;
 	}
 }

@@ -24,6 +24,14 @@ public class UserActivity implements Serializable {
 		this.finishTime = finishTime;
 	}
 	
+	public UserActivity(int userId, int activityId, String approved, String startDateTime, String finishTime) {
+		this.user.setId(userId);
+		this.activity.setId(activityId);
+		this.approved = approved;
+		this.startDateTime = startDateTime;
+		this.finishTime = finishTime;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -70,7 +78,11 @@ public class UserActivity implements Serializable {
 				+ startDateTime + ", finishTime=" + finishTime + "]";
 	}
 
-	public static UserActivity createUserActivity(User user, Activity activity, String approved, String startDateTime, String time) {
-		return new UserActivity(user, activity, approved, startDateTime, time);
+	public static UserActivity createUserActivity(User user, Activity activity, String approved, String startDateTime, String finishTime) {
+		return new UserActivity(user, activity, approved, startDateTime, finishTime);
+	}
+	
+	public static UserActivity createUserActivity(int userId, int activityId, String approved, String startDateTime, String finishTime) {
+		return new UserActivity(userId, activityId, approved, startDateTime, finishTime);
 	}
 }

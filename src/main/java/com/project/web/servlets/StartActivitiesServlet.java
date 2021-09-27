@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import com.project.db.DBException;
 import com.project.db.dao.UserActivityDAO;
 import com.project.db.entity.User;
+import com.project.db.entity.UserActivity;
 
 @WebServlet("/startActivities")
 public class StartActivitiesServlet extends HttpServlet {
@@ -42,7 +43,7 @@ public class StartActivitiesServlet extends HttpServlet {
 		try {
 			UserActivityDAO userActivityDao = new UserActivityDAO();
 			for (String id : arrayOfActivitiesIds) {
-				userActivityDao.update(user.getId(), Integer.parseInt(id), "Yes",  startDateTime, "00:00:00");
+				userActivityDao.update(UserActivity.createUserActivity(user.getId(), Integer.parseInt(id), "Yes",  startDateTime, "00:00:00"));
 			}
 			resp.sendRedirect(req.getContextPath() + "/getUserActivities");
 		} catch (DBException ex) {

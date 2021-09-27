@@ -21,13 +21,13 @@ public class UserActivityDAO {
 
 	private static final Logger log = LogManager.getLogger(UserActivityDAO.class);
 	
-	public void create(User user, String[] activitiesIds, String approved) throws DBException {
+	public void create(User user, String[] activitiesIds) throws DBException {
 		Connection con = null;
 		try {
 			con = DBUtils.getInstance().getConnection();
 			con.setAutoCommit(false);
 			for (String id : activitiesIds) {
-				create(con, user.getId(), Integer.parseInt(id), approved);
+				create(con, user.getId(), Integer.parseInt(id));
 			}
 			con.commit();
 		} catch (SQLException | NumberFormatException ex) {
@@ -39,22 +39,21 @@ public class UserActivityDAO {
 		}
 	}
 	
-	private void create(Connection con, int userId, int activityId, String approved) throws SQLException {
-		String insert = "INSERT INTO users_activities VALUES (?, ?, ?, 0, 0)";
+	private void create(Connection con, int userId, int activityId) throws SQLException {
+		String insert = "INSERT INTO users_activities VALUES (?, ?, 'No', 0, 0)";
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = con.prepareStatement(insert);
 			int index = 1;
 			pstmt.setInt(index++, userId);
 			pstmt.setInt(index++, activityId);
-			pstmt.setString(index++, approved);
 			pstmt.executeUpdate();
 		} finally {
 			DBUtils.close(pstmt);
 		}
 	}
 
-	public void update(int userId, int activityId, String approved, String startDateTime, String finishTime) throws DBException {
+	public void update(UserActivity userActivity) throws DBException {
 		String update = "UPDATE users_activities SET approved = ?, start_datetime = ?, finish_time = ? WHERE user_id = ? AND activity_id = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -62,11 +61,11 @@ public class UserActivityDAO {
 			con = DBUtils.getInstance().getConnection();
 			pstmt = con.prepareStatement(update);
 			int index = 1;
-			pstmt.setString(index++, approved);
-			pstmt.setString(index++, startDateTime);
-			pstmt.setString(index++, finishTime);
-			pstmt.setInt(index++, userId);
-			pstmt.setInt(index++, activityId);
+			pstmt.setString(index++, userActivity.getApproved());
+			pstmt.setString(index++, userActivity.getStartDateTime());
+			pstmt.setString(index++, userActivity.getFinishTime());
+			pstmt.setInt(index++, userActivity.getUser().getId());
+			pstmt.setInt(index++, userActivity.getActivity().getId());
 			pstmt.executeUpdate();
 		} catch (SQLException ex) {
 			log.error("Cannot update user activity", ex);

@@ -73,12 +73,21 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
+	public static User createUser(String login, String password, String salt) {
+		return new User(login, password, salt, 2, "user");
+	}
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", login=" + login + ", role=" + role + "]";
 	}
-
-	public static User createUser(String login, String password, String salt) {
-		return new User(login, password, salt, 2, "user");
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof User) {
+			User user = (User) obj;
+			return this.login.equals(user.login);
+		}
+		return false;
 	}
 }

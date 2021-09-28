@@ -2,6 +2,9 @@ package com.project.db.entity;
 
 import java.io.Serializable;
 
+/**
+ * The User entity class whose object characterize by id, login, password, password salt, role id and role name.
+ */
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;

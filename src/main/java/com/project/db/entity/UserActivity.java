@@ -2,6 +2,10 @@ package com.project.db.entity;
 
 import java.io.Serializable;
 
+/**
+ * The UserActivity entity class whose object characterize by User object, Activity object, approved (means admin approve or not activity for user), 
+ * start date and time of activity and finish time.
+ */
 public class UserActivity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

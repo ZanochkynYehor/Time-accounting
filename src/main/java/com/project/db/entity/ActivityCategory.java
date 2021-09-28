@@ -2,6 +2,9 @@ package com.project.db.entity;
 
 import java.io.Serializable;
 
+/**
+ * The ActivityCategory entity class whose object characterize by id and category name.
+ */
 public class ActivityCategory implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -54,5 +57,17 @@ public class ActivityCategory implements Serializable {
 			return this.name.equals(category.name);
 		}
 		return false;
+	}
+	
+	////////////////////////////////////
+	
+	private int countOfActivities;
+	
+	public int getCountOfActivities() {
+		return countOfActivities;
+	}
+
+	public void setCountOfActivities(int countOfActivities) {
+		this.countOfActivities = countOfActivities;
 	}
 }

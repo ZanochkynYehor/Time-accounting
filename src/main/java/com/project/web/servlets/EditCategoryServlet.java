@@ -31,7 +31,6 @@ public class EditCategoryServlet extends HttpServlet {
 		String str = arr[arr.length - 1];
 		String[] arr2 = str.split("\\?");
 		String page = arr2[0];
-		System.out.println(page);
 
 		HttpSession session = req.getSession();
 		ActivityCategoryDAO activityCategoryDao = new ActivityCategoryDAO();

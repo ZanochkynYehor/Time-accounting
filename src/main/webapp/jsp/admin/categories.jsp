@@ -85,7 +85,8 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th><fmt:message key="categories.category"/></th>
+								<th style="width: 50%"><fmt:message key="categories.category"/></th>
+								<th><fmt:message key="categories.countOfActivities"/></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -93,6 +94,7 @@
 								<tr>
 									<td><input type="checkbox" name="chk_category" value="${category.id}" onclick="enableDisableButtons()"></td>
 									<td>${category.name}</td>
+									<td>${category.countOfActivities}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

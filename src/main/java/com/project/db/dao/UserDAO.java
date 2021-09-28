@@ -15,6 +15,13 @@ import com.project.db.DBUtils;
 import com.project.db.DBException;
 import com.project.db.entity.User;
 
+/**
+ * The UserDAO class with which you can perform CRUD operations on "users" table.
+ * 
+ * @see DAO
+ * @see User
+ * @see DBException
+ */
 public class UserDAO implements DAO<User> {
 
 	private static final Logger log = LogManager.getLogger(UserDAO.class);

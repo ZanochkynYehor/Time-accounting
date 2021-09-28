@@ -3,6 +3,10 @@ package com.project.db.entity;
 import java.io.Serializable;
 import java.util.Comparator;
 
+/**
+ * The Activity entity class whose object characterize by id, activity name, category id and category name
+ * and also has some comparators to sort a List of activities.
+ */
 public class Activity implements Serializable {
 
 	private static final long serialVersionUID = 1L;

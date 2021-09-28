@@ -15,6 +15,13 @@ import com.project.db.DBUtils;
 import com.project.db.DBException;
 import com.project.db.entity.Activity;
 
+/**
+ * The ActivityDAO class with which you can perform CRUD operations on "activities" table.
+ * 
+ * @see DAO
+ * @see Activity
+ * @see DBException
+ */
 public class ActivityDAO implements DAO<Activity> {
 
 	private static final Logger log = LogManager.getLogger(ActivityDAO.class);

@@ -15,6 +15,13 @@ import com.project.db.DBUtils;
 import com.project.db.DBException;
 import com.project.db.entity.ActivityCategory;
 
+/**
+ * The ActivityCategoryDAO class with which you can perform CRUD operations on "activity_categories" table.
+ * 
+ * @see DAO
+ * @see ActivityCategory
+ * @see DBException
+ */
 public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 	
 	private static final Logger log = LogManager.getLogger(ActivityCategoryDAO.class);
@@ -141,7 +148,7 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 		return activityCategory;
 	}
 	
-	@Override
+	/*@Override
 	public List<ActivityCategory> getAll() throws DBException {
 		String select = "SELECT * FROM activity_categories";
 		Connection con = null;
@@ -154,6 +161,36 @@ public class ActivityCategoryDAO implements DAO<ActivityCategory> {
 			rs = stmt.executeQuery(select);
 			while (rs.next()) {
 				ActivityCategory activityCategory = getCategoryFromResultSet(rs);
+				list.add(activityCategory);
+			}
+		} catch (SQLException e) {
+			log.error("Cannot get all activity categories", e);
+			throw new DBException("Cannot get all activity categories", e);
+		} finally {
+			DBUtils.close(rs);
+			DBUtils.close(stmt);
+			DBUtils.close(con);
+		}
+		return list;
+	}*/
+
+	@Override
+	public List<ActivityCategory> getAll() throws DBException {
+		String select = "SELECT category_id, category_name, COUNT(activity_id) AS cnt FROM activity_categories "
+				+ "LEFT JOIN activities USING(category_id) GROUP BY (category_id)";
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<ActivityCategory> list = new ArrayList<>();
+		try {
+			con = DBUtils.getInstance().getConnection();
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(select);
+			while (rs.next()) {
+				ActivityCategory activityCategory = new ActivityCategory();
+				activityCategory.setId(rs.getInt("category_id"));
+				activityCategory.setName(rs.getString("category_name"));
+				activityCategory.setCountOfActivities(rs.getInt("cnt"));
 				list.add(activityCategory);
 			}
 		} catch (SQLException e) {

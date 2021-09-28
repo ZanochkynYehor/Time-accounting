@@ -15,6 +15,10 @@ import org.apache.logging.log4j.Logger;
 
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 
+/**
+ * The DBUtils class with which you can get the Connection to database from the connection pool,
+ * close (Connection, Statement or ResultSet) and rollback the Connection.
+ */
 public class DBUtils {
 
 	static final Logger log = LogManager.getLogger(DBUtils.class);

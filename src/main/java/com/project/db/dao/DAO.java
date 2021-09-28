@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.project.db.DBException;
 
+/**
+ * The DAO interface that define a basic methods for CRUD operations.
+ * 
+ * @see DBException
+ */
 public interface DAO<T> {
 	
 	T create(T obj) throws DBException;

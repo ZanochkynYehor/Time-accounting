@@ -17,6 +17,12 @@ import com.project.db.entity.Activity;
 import com.project.db.entity.User;
 import com.project.db.entity.UserActivity;
 
+/**
+ * The UserActivityDAO class with which you can perform CRUD operations on "users_activities" table.
+ * 
+ * @see UserActivity
+ * @see DBException
+ */
 public class UserActivityDAO {
 
 	private static final Logger log = LogManager.getLogger(UserActivityDAO.class);
